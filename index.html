@@ -425,6 +425,110 @@
             }
         }
 
+        /* Feature Sections */
+        .feature-section {
+            padding: 120px 0;
+        }
+
+        .feature-row {
+            max-width: 1024px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .feature-row.reverse {
+            direction: rtl;
+        }
+
+        .feature-row.reverse > * {
+            direction: ltr;
+        }
+
+        .feature-phone {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 9/19.5;
+            border-radius: 44px;
+            overflow: hidden;
+            background: #1a1a1a;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+            justify-self: center;
+        }
+
+        .feature-phone img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .phone-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'PP Neue Bit', monospace;
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        .feature-content {
+            padding: 20px 0;
+        }
+
+        .feature-content h2 {
+            font-family: 'PP Fuji', -apple-system, sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+        }
+
+        .feature-content p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-secondary);
+        }
+
+        .section-canvas .feature-content h2 {
+            color: #f5f5f5;
+        }
+
+        .section-canvas .feature-content p {
+            color: #b3b3b3;
+        }
+
+        @media (max-width: 734px) {
+            .feature-section {
+                padding: 80px 0;
+            }
+            .feature-row {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .feature-row.reverse {
+                direction: ltr;
+            }
+            .feature-phone {
+                max-width: 260px;
+            }
+            .feature-content h2 {
+                font-size: 40px;
+            }
+            .feature-content p {
+                font-size: 20px;
+            }
+        }
+
         /* Feature Showcase (Apple-style interactive) */
         .feature-showcase {
             padding: 100px 0;
@@ -931,45 +1035,79 @@
         </div>
     </section>
 
-    <!-- Haptics Section -->
-    <section class="section-main haptics-section">
-        <div class="headline-section">
-            <h2 class="fade-in">Editing you can feel.</h2>
-            <p class="fade-in">30+ haptic patterns. Every tap, slide, and click has its own signature.</p>
+    <!-- Batch Editing Section -->
+    <section class="section-main feature-section">
+        <div class="feature-row">
+            <div class="feature-phone fade-in">
+                <div class="phone-placeholder">BATCH SCREENSHOT</div>
+            </div>
+            <div class="feature-content fade-in">
+                <h2>Batch editing.</h2>
+                <p>Edit up to 36 frames at once. Lock your settings, swipe through your roll, and apply edits to the whole batch. Just like a real lab.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Specs Grid -->
-    <section class="section-card specs-section">
-        <div class="specs-grid stagger">
-            <div class="spec-card">
-                <div class="spec-icon">📷</div>
-                <h3>Real Scans</h3>
-                <p>Presets built from actual film scanned on a Fuji Frontier SP3000.</p>
+    <!-- Haptics Section -->
+    <section class="section-canvas feature-section">
+        <div class="feature-row reverse">
+            <div class="feature-phone fade-in">
+                <div class="phone-placeholder">HAPTICS SCREENSHOT</div>
             </div>
-            <div class="spec-card">
-                <div class="spec-icon">🎞️</div>
-                <h3>14 Borders</h3>
-                <p>Authentic film borders. Each preset has its own matching style.</p>
+            <div class="feature-content fade-in">
+                <h2>Editing you can feel.</h2>
+                <p>30+ custom haptic patterns. Every button tap, slider tick, and preset selection has its own tactile signature.</p>
             </div>
-            <div class="spec-card">
-                <div class="spec-icon">📱</div>
-                <h3>36 Frames</h3>
-                <p>Batch edit an entire session. Lock settings. Swipe to apply.</p>
+        </div>
+    </section>
+
+    <!-- CMYK Section -->
+    <section class="section-main feature-section">
+        <div class="feature-row">
+            <div class="feature-phone fade-in">
+                <div class="phone-placeholder">CMYK SCREENSHOT</div>
             </div>
-            <div class="spec-card">
-                <div class="spec-icon">🎮</div>
-                <h3>30+ Haptics</h3>
-                <p>Every button, slider, and interaction has its own tactile feel.</p>
+            <div class="feature-content fade-in">
+                <h2>CMYK color control.</h2>
+                <p>Adjust Cyan, Magenta, Yellow, and Density like a lab technician. Fine-tune intensity, hypertone, and softness.</p>
             </div>
-            <div class="spec-card">
-                <div class="spec-icon">📋</div>
-                <h3>Contact Sheets</h3>
-                <p>Auto-generated proof sheets. Perfect for Instagram carousels.</p>
+        </div>
+    </section>
+
+    <!-- Film Borders Section -->
+    <section class="section-card feature-section">
+        <div class="feature-row reverse">
+            <div class="feature-phone fade-in">
+                <div class="phone-placeholder">BORDERS SCREENSHOT</div>
             </div>
-            <div class="spec-card">
-                <div class="spec-icon">☁️</div>
-                <h3>Google Drive</h3>
+            <div class="feature-content fade-in">
+                <h2>Film borders.</h2>
+                <p>14 authentic film borders. Each preset comes with its own matching style.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Sheets & Drive Section -->
+    <section class="section-main feature-section">
+        <div class="feature-row">
+            <div class="feature-phone fade-in">
+                <div class="phone-placeholder">CONTACT SHEET SCREENSHOT</div>
+            </div>
+            <div class="feature-content fade-in">
+                <h2>Contact sheets.</h2>
+                <p>Auto-generated proof sheets. Perfect for Instagram carousels or archiving your work.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Drive Section -->
+    <section class="section-canvas feature-section">
+        <div class="feature-row reverse">
+            <div class="feature-phone fade-in">
+                <div class="phone-placeholder">DRIVE SCREENSHOT</div>
+            </div>
+            <div class="feature-content fade-in">
+                <h2>Google Drive export.</h2>
                 <p>Export directly to Drive. Browse folders. Stay organized.</p>
             </div>
         </div>
