@@ -68,7 +68,25 @@
 
         /* Sections */
         section {
-            padding: 0 max(22px, env(safe-area-inset-left));
+            padding: 0 max(22px, calc((100vw - 1280px) / 2 + 120px));
+        }
+
+        @media (max-width: 1280px) {
+            section {
+                padding: 0 120px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            section {
+                padding: 0 60px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 0 22px;
+            }
         }
 
         .section-main {
@@ -91,44 +109,86 @@
             color: var(--text-primary);
         }
 
+        /* Nav */
+        .nav {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 20px max(22px, calc((100vw - 1280px) / 2 + 120px));
+            position: relative;
+        }
+
+        @media (max-width: 1280px) {
+            .nav { padding: 20px 120px; }
+        }
+        @media (max-width: 900px) {
+            .nav { padding: 20px 60px; }
+        }
+        @media (max-width: 600px) {
+            .nav { padding: 20px 22px; }
+        }
+
+        .nav-hamburger {
+            cursor: pointer;
+            justify-self: start;
+        }
+
+        .nav-logo {
+            justify-self: center;
+        }
+
+        .nav-logo svg {
+            width: 64px;
+            height: 80px;
+        }
+
+        .nav-download {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            justify-self: end;
+        }
+
         /* Hero */
         .hero {
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             text-align: center;
-            padding-top: 48px;
+            padding: 60px max(22px, calc((100vw - 1280px) / 2 + 120px)) 0;
             padding-bottom: 0;
-            position: relative;
-            z-index: 2;
         }
 
-        .hero-logo {
-            position: absolute;
-            top: 36px;
-            left: 50%;
-            transform: translateX(-50%);
+        @media (max-width: 1280px) {
+            .hero { padding: 60px 120px 0; }
+        }
+        @media (max-width: 900px) {
+            .hero { padding: 40px 60px 0; }
+        }
+        @media (max-width: 600px) {
+            .hero { padding: 40px 22px 0; }
         }
 
         .hero h1 {
             font-family: 'PP Fuji', -apple-system, sans-serif;
-            font-size: 88px;
+            font-size: 100px;
             font-weight: 700;
-            line-height: 1.05;
+            line-height: 0.95;
             letter-spacing: -0.01em;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .hero-subtitle {
             font-family: 'PP Neue Bit', sans-serif;
-            font-size: 24px;
+            font-size: 36px;
             font-weight: 700;
-            line-height: 1.2;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 30px;
+            line-height: 0.9;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin-bottom: 36px;
         }
 
         .hero-cta {
@@ -137,6 +197,18 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 60px;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 0;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         /* Arcade Button Styles */
@@ -180,33 +252,19 @@
             color: white;
         }
 
-        .hero-phone {
-            width: 100%;
-            max-width: 380px;
-            aspect-ratio: 9/19.5;
-            border-radius: 50px;
-            overflow: hidden;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-            position: relative;
-            z-index: 3;
-            margin-bottom: -50vh;
-        }
-
-        .hero-phone img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
 
         @media (max-width: 734px) {
+            .hero {
+                padding-top: 40px;
+            }
             .hero h1 {
-                font-size: 53px;
+                font-size: 48px;
             }
             .hero-subtitle {
-                font-size: 19px;
+                font-size: 24px;
             }
-            .hero-phone {
-                max-width: 280px;
+            .hero-image {
+                max-width: 300px;
             }
         }
 
@@ -253,9 +311,18 @@
             color: #b3b3b3;
         }
 
+        .section-canvas.preset-section {
+            background: #b3b3b3;
+        }
+
         .section-canvas.preset-section .headline-section {
             padding-top: 120px;
             padding-bottom: 90px;
+        }
+
+        .section-canvas.preset-section .headline-section h2,
+        .section-canvas.preset-section .headline-section p {
+            color: #222222;
         }
 
         .section-canvas.preset-section .headline-section p {
@@ -263,12 +330,30 @@
         }
 
         .section-canvas.video-section {
-            padding-top: 55vh;
+            padding: 0;
+            padding-bottom: 60px;
+            background: #222222;
+            color: #d9d9d9;
         }
 
         .section-canvas.video-section .headline-section {
-            padding-top: 120px;
-            padding-bottom: 120px;
+            padding: 120px 90px 60px;
+            text-align: center;
+            max-width: none;
+        }
+
+        .section-canvas.video-section .headline-section h2 {
+            color: #d9d9d9;
+            text-align: center;
+            max-width: none;
+            margin: 0 auto;
+        }
+
+        .section-canvas.video-section .headline-section p {
+            color: #d9d9d9;
+            text-align: center;
+            max-width: 720px;
+            margin: 20px auto 0;
         }
 
         @media (max-width: 734px) {
@@ -283,7 +368,7 @@
                 font-size: 24px;
             }
             .section-canvas.video-section {
-                padding-top: 45vh;
+                padding-top: 0;
             }
         }
 
@@ -319,13 +404,23 @@
         /* Phone Gallery */
         .phone-gallery {
             display: flex;
-            gap: 30px;
+            gap: 48px;
             justify-content: flex-start;
-            padding: 20px 0;
-            padding-left: max(22px, calc((100vw - 1024px) / 2 + 22px));
+            padding: 40px 0;
+            padding-left: max(22px, calc((100vw - 1280px) / 2 + 120px));
             padding-right: 40px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 1280px) {
+            .phone-gallery { padding-left: 120px; }
+        }
+        @media (max-width: 900px) {
+            .phone-gallery { padding-left: 60px; }
+        }
+        @media (max-width: 600px) {
+            .phone-gallery { padding-left: 22px; }
         }
 
         .phone-gallery::-webkit-scrollbar {
@@ -356,24 +451,24 @@
         }
 
         .gallery-info {
-            margin-top: 16px;
+            margin-top: 48px;
             text-align: center;
             max-width: 220px;
         }
 
         .gallery-info h4 {
             font-family: 'PP Neue Bit', sans-serif;
-            font-size: 18px;
+            font-size: 24px;
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 4px;
-            color: var(--text-primary);
+            color: #d9d9d9;
         }
 
         .gallery-info p {
             font-family: 'PP Neue Bit', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
+            font-size: 20px;
+            font-weight: 700;
             color: var(--text-muted);
             line-height: 1.3;
         }
@@ -381,35 +476,125 @@
         .gallery-nav {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 0;
-            padding: 40px 0 60px;
+            background: #d9d9d9;
+            width: fit-content;
+            height: 48px;
+            margin: 40px auto 60px;
+            border-radius: 24px;
+            padding: 4px;
         }
 
         .gallery-nav-btn {
-            width: 56px;
-            height: 56px;
+            width: 40px;
+            height: 40px;
             border: none;
-            background: #d9d9d9;
+            background: transparent;
             color: #999;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-        }
-
-        .gallery-nav-btn:first-child {
-            border-radius: 28px 0 0 28px;
-        }
-
-        .gallery-nav-btn:last-child {
-            border-radius: 0 28px 28px 0;
+            border-radius: 50%;
         }
 
         .gallery-nav-btn.active,
         .gallery-nav-btn:hover {
             background: #222222;
             color: #d9d9d9;
+        }
+
+        .gallery-counter {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #666;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 44px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: #d9d9d9;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #222;
+        }
+
+        .lightbox-info {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #d9d9d9;
+        }
+
+        .lightbox-info h4 {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .lightbox-info p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .gallery-phone {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .gallery-phone:hover {
+            transform: scale(1.02);
         }
 
         @media (max-width: 734px) {
@@ -526,6 +711,72 @@
             }
             .feature-content p {
                 font-size: 20px;
+            }
+        }
+
+        /* Features Grid */
+        .features-grid-section {
+            padding: 80px max(22px, calc((100vw - 1280px) / 2 + 120px));
+            background: #222222;
+        }
+
+        @media (max-width: 1280px) {
+            .features-grid-section { padding: 80px 120px; }
+        }
+        @media (max-width: 900px) {
+            .features-grid-section { padding: 60px 60px; }
+        }
+        @media (max-width: 600px) {
+            .features-grid-section { padding: 60px 22px; }
+        }
+
+        .features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: #2a2a2a;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid #3a3a3a;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #f5f5f5;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #888888;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -774,8 +1025,9 @@
         }
 
         .preset-desc {
-            font-size: 14px;
-            color: var(--text-secondary);
+            font-size: 20px;
+            color: #d9d9d9;
+            text-transform: uppercase;
         }
 
         @media (max-width: 734px) {
@@ -931,15 +1183,29 @@
 </head>
 <body>
 
+<!-- Nav -->
+    <nav class="nav section-main">
+        <div class="nav-hamburger">
+            <svg width="24" height="19" viewBox="0 0 24 19" fill="none">
+                <path d="M1 1.5H23" stroke="#222222" stroke-width="3"/>
+                <path d="M1 9.5H23" stroke="#222222" stroke-width="3"/>
+                <path d="M1 17.5H23" stroke="#222222" stroke-width="3"/>
+            </svg>
+        </div>
+        <a href="/" class="nav-logo">
+            <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
+                <path d="M61.1 0C43.9 14.3 16.8 40.5 3.8 58.1C10.3 53 31.6 33.5 61.1 0Z" fill="#222222"/>
+                <path d="M58.5 11C41.2 25.3 14.1 51.5 1.1 69.1C7.6 64 28.9 44.5 58.5 11Z" fill="#222222"/>
+                <path d="M62.9 15C45.7 29.3 18.6 55.5 5.6 73.1C12.1 68 33.4 48.5 62.9 15Z" fill="#222222"/>
+            </svg>
+        </a>
+        <a href="#" class="nav-download">Download Now</a>
+    </nav>
+
 <!-- Hero -->
     <section class="hero section-main">
-        <svg class="hero-logo fade-in" width="60" height="75" viewBox="90 0 80 100" fill="none">
-            <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="#222222"/>
-            <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="#222222"/>
-            <path d="M168.579 18.7311C147.094 36.6357 113.213 69.415 96.9607 91.4514C105.041 85.116 131.944 60.8758 168.579 18.7311Z" fill="#222222"/>
-        </svg>
-        <h1 class="fade-in">Real film science.<br>Real good buttons.</h1>
-        <p class="hero-subtitle fade-in">A tactile photo editor for iOS. Presets built from real Frontier scans. Buttons that actually click. Edit one frame or 36 at once.</p>
+        <h1 class="fade-in">Process photos<br>like a lab tech</h1>
+        <p class="hero-subtitle fade-in">Film presets built from real Fuji Frontier scans.<br>Batch edit 36 frames. Feel every adjustment.</p>
 
         <div class="hero-cta fade-in">
             <a href="#" class="btn-arcade">
@@ -952,177 +1218,124 @@
             </a>
         </div>
 
-        <div class="hero-phone fade-in">
-            <img src="main.png" alt="Frontier app">
-        </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="section-canvas video-section">
-        <div class="headline-section">
-            <h2 class="fade-in">See it in action.</h2>
-            <p class="fade-in">Real workflow. Real speed. Real satisfying.</p>
-        </div>
-        <div class="media-section">
-            <div class="media-container fade-in">
-                <!-- Replace with: <video src="demo.mp4" autoplay muted loop playsinline></video> -->
-                <div class="media-placeholder">App demo video</div>
-            </div>
+        <div class="hero-image fade-in">
+            <img src="hero.png" alt="Fuji Frontier Minilab">
         </div>
     </section>
 
     <!-- Phone Gallery -->
-    <section class="section-card" id="features">
+    <section class="section-canvas video-section" id="features">
         <div class="headline-section">
-            <h2 class="fade-in">Every screen, considered.</h2>
-            <p class="fade-in">No clutter. No confusion. Just your photos and the tools to make them sing.</p>
+            <h2 class="fade-in">A closer look</h2>
+            <p class="fade-in">Designed to feel as good as the photos you make. Tactile feedback, visual clarity, and tools that just work.</p>
         </div>
         <div class="phone-gallery">
             <div class="gallery-item">
-                <div class="gallery-phone"><img src="1.PNG" alt="Home"></div>
+                <div class="gallery-phone"><img src="2.PNG" alt="Home"></div>
                 <div class="gallery-info">
                     <h4>Home</h4>
-                    <p>Your photos, ready to edit</p>
+                    <p>Film looks built from real scans. Tap to preview. Tap again to apply.</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="gallery-phone"><img src="2.PNG" alt="Edit"></div>
+                <div class="gallery-phone"><img src="1.PNG" alt="Edit"></div>
                 <div class="gallery-info">
                     <h4>Edit</h4>
-                    <p>Presets, sliders, and fine control</p>
+                    <p>Every button placed with purpose. Haptic feedback on every interaction.</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="gallery-phone"><img src="3.PNG" alt="Light"></div>
+                <div class="gallery-phone"><img src="3.PNG" alt="Hold Settings"></div>
+                <div class="gallery-info">
+                    <h4>Hold Settings</h4>
+                    <p>Lock your look. Swipe through your roll. Every frame, same edit.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="4.PNG" alt="Copy Paste"></div>
+                <div class="gallery-info">
+                    <h4>Copy Paste</h4>
+                    <p>Copy edits from one frame. Paste to any other. Simple.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="5.PNG" alt="Crop"></div>
+                <div class="gallery-info">
+                    <h4>Crop</h4>
+                    <p>Aspect ratios for every format. Drag to reframe.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="6.PNG" alt="Intensity"></div>
+                <div class="gallery-info">
+                    <h4>Intensity</h4>
+                    <p>Reset intensity. Hypertoning. Softness. Fine-tune the film look.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="7.PNG" alt="Light"></div>
                 <div class="gallery-info">
                     <h4>Light</h4>
-                    <p>Brightness, contrast, shadows, highlights</p>
+                    <p>Brightness. Contrast. Shadows. Highlights. The fundamentals.</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="gallery-phone"><img src="4.PNG" alt="CMYK"></div>
+                <div class="gallery-phone"><img src="8.PNG" alt="CMYK"></div>
                 <div class="gallery-info">
                     <h4>CMYK</h4>
-                    <p>Color like a lab tech</p>
+                    <p>Cyan. Magenta. Yellow. Density. Color like a lab technician.</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="gallery-phone"><img src="5.PNG" alt="Batch"></div>
+                <div class="gallery-phone"><img src="10.PNG" alt="Build a Preset"></div>
                 <div class="gallery-info">
-                    <h4>Batch</h4>
-                    <p>Edit up to 36 frames at once</p>
+                    <h4>Build a Preset</h4>
+                    <p>Create your own look. Save it. Use it forever.</p>
                 </div>
             </div>
             <div class="gallery-item">
-                <div class="gallery-phone"><img src="6.PNG" alt="Export"></div>
+                <div class="gallery-phone"><img src="9.PNG" alt="Contact Sheet"></div>
                 <div class="gallery-info">
-                    <h4>Export</h4>
-                    <p>Save, share, or send to Drive</p>
+                    <h4>Contact Sheet</h4>
+                    <p>Auto-generated proof sheets. Perfect for carousels.</p>
                 </div>
             </div>
         </div>
         <div class="gallery-nav">
             <button class="gallery-nav-btn" id="galleryPrev" aria-label="Previous">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="11" width="12" height="2"/>
+                    <rect x="6" y="11" width="2" height="2"/>
+                    <rect x="8" y="9" width="2" height="2"/>
+                    <rect x="10" y="7" width="2" height="2"/>
+                    <rect x="8" y="13" width="2" height="2"/>
+                    <rect x="10" y="15" width="2" height="2"/>
                 </svg>
             </button>
+            <span class="gallery-counter"><span id="galleryCurrentSlide">1</span> / <span id="galleryTotalSlides">10</span></span>
             <button class="gallery-nav-btn active" id="galleryNext" aria-label="Next">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="11" width="12" height="2"/>
+                    <rect x="16" y="11" width="2" height="2"/>
+                    <rect x="14" y="9" width="2" height="2"/>
+                    <rect x="12" y="7" width="2" height="2"/>
+                    <rect x="14" y="13" width="2" height="2"/>
+                    <rect x="12" y="15" width="2" height="2"/>
                 </svg>
             </button>
-        </div>
-    </section>
-
-    <!-- Batch Editing Section -->
-    <section class="section-main feature-section">
-        <div class="feature-row">
-            <div class="feature-phone fade-in">
-                <div class="phone-placeholder">BATCH SCREENSHOT</div>
-            </div>
-            <div class="feature-content fade-in">
-                <h2>Batch editing.</h2>
-                <p>Edit up to 36 frames at once. Lock your settings, swipe through your roll, and apply edits to the whole batch. Just like a real lab.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Haptics Section -->
-    <section class="section-canvas feature-section">
-        <div class="feature-row reverse">
-            <div class="feature-phone fade-in">
-                <div class="phone-placeholder">HAPTICS SCREENSHOT</div>
-            </div>
-            <div class="feature-content fade-in">
-                <h2>Editing you can feel.</h2>
-                <p>30+ custom haptic patterns. Every button tap, slider tick, and preset selection has its own tactile signature.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CMYK Section -->
-    <section class="section-main feature-section">
-        <div class="feature-row">
-            <div class="feature-phone fade-in">
-                <div class="phone-placeholder">CMYK SCREENSHOT</div>
-            </div>
-            <div class="feature-content fade-in">
-                <h2>CMYK color control.</h2>
-                <p>Adjust Cyan, Magenta, Yellow, and Density like a lab technician. Fine-tune intensity, hypertone, and softness.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Film Borders Section -->
-    <section class="section-card feature-section">
-        <div class="feature-row reverse">
-            <div class="feature-phone fade-in">
-                <div class="phone-placeholder">BORDERS SCREENSHOT</div>
-            </div>
-            <div class="feature-content fade-in">
-                <h2>Film borders.</h2>
-                <p>14 authentic film borders. Each preset comes with its own matching style.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Sheets & Drive Section -->
-    <section class="section-main feature-section">
-        <div class="feature-row">
-            <div class="feature-phone fade-in">
-                <div class="phone-placeholder">CONTACT SHEET SCREENSHOT</div>
-            </div>
-            <div class="feature-content fade-in">
-                <h2>Contact sheets.</h2>
-                <p>Auto-generated proof sheets. Perfect for Instagram carousels or archiving your work.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Google Drive Section -->
-    <section class="section-canvas feature-section">
-        <div class="feature-row reverse">
-            <div class="feature-phone fade-in">
-                <div class="phone-placeholder">DRIVE SCREENSHOT</div>
-            </div>
-            <div class="feature-content fade-in">
-                <h2>Google Drive export.</h2>
-                <p>Export directly to Drive. Browse folders. Stay organized.</p>
-            </div>
         </div>
     </section>
 
     <!-- Presets Section -->
     <section class="section-canvas preset-section" id="presets">
         <div class="headline-section">
-            <h2 class="fade-in">Frontier Classics.</h2>
+            <h2 class="fade-in">Frontier Classics</h2>
             <p class="fade-in">Built from real film, scanned on real hardware. Not filters. Color science.</p>
         </div>
 
         <div class="preset-grid stagger">
             <div class="preset-card">
-                <div class="media-placeholder" style="aspect-ratio: 4/5;">SUPRA preview</div>
+                <img src="supra.png" alt="SUPRA preset preview">
                 <svg class="preset-badge" viewBox="90 0 80 100" fill="none">
                     <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="white"/>
                     <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="white"/>
@@ -1134,7 +1347,7 @@
                 </div>
             </div>
             <div class="preset-card">
-                <div class="media-placeholder" style="aspect-ratio: 4/5;">CHROME preview</div>
+                <img src="chrome.png" alt="CHROME preset preview">
                 <svg class="preset-badge" viewBox="90 0 80 100" fill="none">
                     <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="white"/>
                     <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="white"/>
@@ -1146,7 +1359,7 @@
                 </div>
             </div>
             <div class="preset-card">
-                <div class="media-placeholder" style="aspect-ratio: 4/5;">XXX preview</div>
+                <img src="xxx.png" alt="XXX preset preview">
                 <svg class="preset-badge" viewBox="90 0 80 100" fill="none">
                     <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="white"/>
                     <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="white"/>
@@ -1160,10 +1373,46 @@
         </div>
     </section>
 
+    <!-- Features Grid -->
+    <section class="section-canvas features-grid-section">
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">📷</div>
+                <h3>Real Scans</h3>
+                <p>Presets built from actual film scanned on a Fuji Frontier SP3000.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🎞️</div>
+                <h3>14 Borders</h3>
+                <p>Authentic film borders. Each preset has its own matching style.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">📱</div>
+                <h3>36 Frames</h3>
+                <p>Batch edit an entire session. Lock settings. Swipe to apply.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🎮</div>
+                <h3>30+ Haptics</h3>
+                <p>Every button, slider, and interaction has its own tactile feel.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">📋</div>
+                <h3>Contact Sheets</h3>
+                <p>Auto-generated proof sheets. Perfect for Instagram carousels.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">☁️</div>
+                <h3>Google Drive</h3>
+                <p>Export directly to Drive. Browse folders. Stay organized.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section section-main">
-        <h2 class="fade-in">The Frontier Minilab is open.</h2>
-        <p class="fade-in">Your photos aren't going to edit themselves.</p>
+        <h2 class="fade-in">The Frontier Minilab is open</h2>
+        <p class="fade-in">Built for photographers who miss the darkroom.</p>
         <a href="#" class="btn-arcade fade-in">
             <span class="btn-face">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -1173,6 +1422,18 @@
             </span>
         </a>
     </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightboxImg">
+            <div class="lightbox-info">
+                <h4 id="lightboxTitle"></h4>
+                <p id="lightboxDesc"></p>
+            </div>
+        </div>
+        <button class="lightbox-close" id="lightboxClose">×</button>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1217,9 +1478,11 @@
         const gallery = document.querySelector('.phone-gallery');
         const prevBtn = document.getElementById('galleryPrev');
         const nextBtn = document.getElementById('galleryNext');
+        const currentSlideEl = document.getElementById('galleryCurrentSlide');
+        const galleryItems = document.querySelectorAll('.gallery-item');
 
         if (gallery && prevBtn && nextBtn) {
-            const scrollAmount = 250;
+            const scrollAmount = 268; // gallery item width + gap
 
             const updateButtons = () => {
                 const atStart = gallery.scrollLeft <= 10;
@@ -1227,6 +1490,13 @@
 
                 prevBtn.classList.toggle('active', !atStart);
                 nextBtn.classList.toggle('active', !atEnd);
+
+                // Update slide counter
+                if (currentSlideEl && galleryItems.length) {
+                    const itemWidth = galleryItems[0].offsetWidth + 48; // width + gap
+                    const currentIndex = Math.round(gallery.scrollLeft / itemWidth) + 1;
+                    currentSlideEl.textContent = Math.min(currentIndex, galleryItems.length);
+                }
             };
 
             prevBtn.addEventListener('click', () => {
@@ -1240,6 +1510,48 @@
             gallery.addEventListener('scroll', updateButtons);
             updateButtons();
         }
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDesc = document.getElementById('lightboxDesc');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        document.querySelectorAll('.gallery-phone').forEach(phone => {
+            phone.addEventListener('click', () => {
+                const img = phone.querySelector('img');
+                const info = phone.parentElement.querySelector('.gallery-info');
+                const title = info.querySelector('h4').textContent;
+                const desc = info.querySelector('p').textContent;
+
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxTitle.textContent = title;
+                lightboxDesc.textContent = desc;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target === lightboxClose) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
 
     </script>
 </body>
