@@ -313,23 +313,22 @@
 
         .section-canvas.preset-section {
             background: #b3b3b3;
-            padding-left: max(22px, calc((100vw - 1280px) / 2 + 120px));
-            padding-right: max(22px, calc((100vw - 1280px) / 2 + 120px));
+            padding: 0 max(22px, calc((100vw - 1280px) / 2 + 120px));
         }
 
         @media (max-width: 1280px) {
-            .section-canvas.preset-section { padding-left: 120px; padding-right: 120px; }
+            .section-canvas.preset-section { padding: 0 120px; }
         }
         @media (max-width: 900px) {
-            .section-canvas.preset-section { padding-left: 60px; padding-right: 60px; }
+            .section-canvas.preset-section { padding: 0 60px; }
         }
         @media (max-width: 600px) {
-            .section-canvas.preset-section { padding-left: 22px; padding-right: 22px; }
+            .section-canvas.preset-section { padding: 0 22px; }
         }
 
         .section-canvas.preset-section .headline-section {
             padding-top: 120px;
-            padding-bottom: 90px;
+            padding-bottom: 60px;
         }
 
         .section-canvas.preset-section .headline-section h2,
