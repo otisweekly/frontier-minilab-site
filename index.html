@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontier Minilab - Your Pocket Darkroom</title>
+    <meta name="description" content="Film presets built from real Fuji Frontier scans. Batch edit 36 frames. Feel every adjustment with arcade-style haptics.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        /* Custom Fonts */
+        @font-face {
+            font-family: 'PP Fuji';
+            src: url('fonts/ppfuji-bold.woff2') format('woff2'),
+                 url('fonts/ppfuji-bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'PP Neue Bit';
+            src: url('fonts/ppneuebit-bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'PP Neue Bit';
+            src: url('fonts/ppneuebit-regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        :root {
+            /* App Light Mode Colors */
+            --bg-main: #D9D9D9;
+            --bg-nav: #B3B3B3;
+            --bg-canvas: #777777;
+            --bg-card: #C4C6C8;
+            --lcd-green: #C8D7CA;
+            --text-primary: #222222;
+            --text-secondary: #4A4A4A;
+            --text-muted: #6A6A6A;
+            --teal: #2CA4A5;
+            --orange: #FB9B52;
+            --purple: #393E7B;
+            --pink: #A24466;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'PP Neue Bit', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 20px;
+            line-height: 1.3;
+            font-weight: 700;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Sections */
+        section {
+            padding: 0 max(22px, env(safe-area-inset-left));
+        }
+
+        .section-main {
+            background: var(--bg-main);
+            color: var(--text-primary);
+        }
+
+        .section-canvas {
+            background: var(--bg-canvas);
+            color: #f5f5f5;
+        }
+
+        .section-card {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .section-lcd {
+            background: var(--lcd-green);
+            color: var(--text-primary);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 48px;
+            padding-bottom: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero h1 {
+            font-family: 'PP Fuji', -apple-system, sans-serif;
+            font-size: 88px;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        /* Arcade Button Styles */
+        .btn-arcade {
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'PP Neue Bit', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            text-transform: uppercase;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            padding: 0;
+            background: none;
+        }
+
+        .btn-arcade .btn-face {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #D9D9D9;
+            color: #222;
+            padding: 14px 28px;
+            border-radius: 8px;
+            border: 4px solid #000;
+            box-shadow: 0 10px 0 0 #000;
+            transition: box-shadow 0.05s ease-out, transform 0.05s ease-out;
+        }
+
+        .btn-arcade:active .btn-face {
+            background: #222222;
+            color: #D9D9D9;
+            box-shadow: 0 0 0 0 #000;
+            transform: translateY(10px);
+        }
+
+        .btn-arcade.teal .btn-face {
+            background: var(--teal);
+            color: white;
+        }
+
+        .hero-phone {
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 9/19.5;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 3;
+            margin-bottom: -50vh;
+        }
+
+        .hero-phone img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 734px) {
+            .hero h1 {
+                font-size: 53px;
+            }
+            .hero-subtitle {
+                font-size: 19px;
+            }
+            .hero-phone {
+                max-width: 280px;
+            }
+        }
+
+        /* Headline Section */
+        .headline-section {
+            padding-top: 100px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+
+        .headline-section h2 {
+            font-family: 'PP Fuji', -apple-system, sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.07;
+            letter-spacing: -0.01em;
+            max-width: 900px;
+            margin: 0 auto 20px;
+        }
+
+        .headline-section p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .headline-section.light h2 {
+            color: var(--text-primary);
+        }
+
+        .headline-section.light p {
+            color: var(--text-secondary);
+        }
+
+        .section-canvas .headline-section h2 {
+            color: #f5f5f5;
+        }
+
+        .section-canvas .headline-section p {
+            color: #b3b3b3;
+        }
+
+        .section-canvas.preset-section .headline-section {
+            padding-top: 120px;
+            padding-bottom: 90px;
+        }
+
+        .section-canvas.preset-section .headline-section p {
+            margin-bottom: 0;
+        }
+
+        .section-canvas.video-section {
+            padding-top: 55vh;
+        }
+
+        .section-canvas.video-section .headline-section {
+            padding-top: 120px;
+            padding-bottom: 120px;
+        }
+
+        @media (max-width: 734px) {
+            .headline-section {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+            .headline-section h2 {
+                font-size: 40px;
+            }
+            .headline-section p {
+                font-size: 24px;
+            }
+            .section-canvas.video-section {
+                padding-top: 45vh;
+            }
+        }
+
+        /* Media Section */
+        .media-section {
+            padding-top: 20px;
+            padding-bottom: 100px;
+        }
+
+        .media-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+
+        .media-container img,
+        .media-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .media-placeholder {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        /* Phone Gallery */
+        .phone-gallery {
+            display: flex;
+            gap: 30px;
+            justify-content: flex-start;
+            padding: 20px 0;
+            padding-left: max(22px, calc((100vw - 1024px) / 2 + 22px));
+            padding-right: 40px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .phone-gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-item {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gallery-phone {
+            width: 220px;
+            aspect-ratio: 9/19.5;
+            border-radius: 36px;
+            overflow: hidden;
+            background: #1a1a1a;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .gallery-phone img,
+        .gallery-phone video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-info {
+            margin-top: 16px;
+            text-align: center;
+            max-width: 220px;
+        }
+
+        .gallery-info h4 {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .gallery-info p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        .gallery-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            padding: 40px 0 60px;
+        }
+
+        .gallery-nav-btn {
+            width: 56px;
+            height: 56px;
+            border: none;
+            background: #d9d9d9;
+            color: #999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .gallery-nav-btn:first-child {
+            border-radius: 28px 0 0 28px;
+        }
+
+        .gallery-nav-btn:last-child {
+            border-radius: 0 28px 28px 0;
+        }
+
+        .gallery-nav-btn.active,
+        .gallery-nav-btn:hover {
+            background: #222222;
+            color: #d9d9d9;
+        }
+
+        @media (max-width: 734px) {
+            .phone-gallery {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+            .gallery-phone {
+                width: 180px;
+            }
+            .gallery-info {
+                max-width: 180px;
+            }
+        }
+
+        /* Feature Showcase (Apple-style interactive) */
+        .feature-showcase {
+            padding: 100px 0;
+        }
+
+        .showcase-container {
+            max-width: 1024px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 380px 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feature-list.left {
+            text-align: right;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .feature-list.left .feature-item {
+            flex-direction: row-reverse;
+        }
+
+        .feature-item:hover {
+            background: rgba(0,0,0,0.1);
+        }
+
+        .feature-item.active {
+            background: var(--teal);
+            color: white;
+        }
+
+        .feature-item.active:hover {
+            background: #25908f;
+        }
+
+        .feature-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.5;
+        }
+
+        .feature-item.active .feature-dot {
+            opacity: 1;
+            background: white;
+        }
+
+        .showcase-phone {
+            width: 100%;
+            aspect-ratio: 9/19.5;
+            border-radius: 44px;
+            overflow: hidden;
+            background: #1a1a1a;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+
+        .showcase-phone img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .feature-description {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            min-height: 100px;
+        }
+
+        .feature-description h4 {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--teal);
+            text-transform: uppercase;
+        }
+
+        .feature-description p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #6e6e73;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1068px) {
+            .showcase-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+            .feature-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .feature-list.left {
+                text-align: left;
+            }
+            .feature-list.left .feature-item {
+                flex-direction: row;
+            }
+            .feature-item {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+        }
+
+        /* Specs Grid */
+        .specs-section {
+            padding: 100px 0;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        .spec-card {
+            background: rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .spec-card:hover {
+            background: rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+
+        .spec-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .spec-card h3 {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .spec-card p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 734px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .spec-card {
+                padding: 30px 24px;
+            }
+        }
+
+        /* Preset Cards */
+        .preset-section {
+            padding: 100px 0;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        .preset-card {
+            position: relative;
+            aspect-ratio: 4/5;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #333 0%, #1a1a1a 100%);
+        }
+
+        .preset-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preset-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 40px;
+        }
+
+        .preset-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .preset-name {
+            font-family: 'PP Neue Bit', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .preset-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 734px) {
+            .preset-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 150px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-family: 'PP Fuji', -apple-system, sans-serif;
+            font-size: 80px;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-family: 'PP Neue Bit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 734px) {
+            .cta-section {
+                padding: 80px 0;
+            }
+            .cta-section h2 {
+                font-size: 48px;
+            }
+            .cta-section p {
+                font-size: 19px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: #222222;
+            padding: 60px 22px;
+        }
+
+        .footer-content {
+            max-width: 1024px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .footer-logo {
+            width: 160px;
+            height: auto;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .footer-links a {
+            color: #d9d9d9;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+            opacity: 0.7;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: right;
+            font-size: 18px;
+            text-transform: uppercase;
+            color: #d9d9d9;
+            opacity: 0.5;
+        }
+
+        .footer-logo path {
+            fill: #d9d9d9;
+        }
+
+        @media (max-width: 734px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 40px;
+            }
+            .footer-logo {
+                width: 120px;
+            }
+            .footer-right {
+                align-items: flex-start;
+            }
+            .footer-links {
+                justify-content: flex-start;
+            }
+            .footer-bottom {
+                text-align: left;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger > * {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .stagger.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+        .stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+        .stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+        .stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+        .stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+        .stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+    <section class="hero section-main">
+        <svg class="hero-logo fade-in" width="60" height="75" viewBox="90 0 80 100" fill="none">
+            <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="#222222"/>
+            <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="#222222"/>
+            <path d="M168.579 18.7311C147.094 36.6357 113.213 69.415 96.9607 91.4514C105.041 85.116 131.944 60.8758 168.579 18.7311Z" fill="#222222"/>
+        </svg>
+        <h1 class="fade-in">Real film science.<br>Real good buttons.</h1>
+        <p class="hero-subtitle fade-in">A tactile photo editor for iOS. Presets built from real Frontier scans. Buttons that actually click. Edit one frame or 36 at once.</p>
+
+        <div class="hero-cta fade-in">
+            <a href="#" class="btn-arcade">
+                <span class="btn-face">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    Download for iOS
+                </span>
+            </a>
+        </div>
+
+        <div class="hero-phone fade-in">
+            <img src="main.png" alt="Frontier app">
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="section-canvas video-section">
+        <div class="headline-section">
+            <h2 class="fade-in">See it in action.</h2>
+            <p class="fade-in">Real workflow. Real speed. Real satisfying.</p>
+        </div>
+        <div class="media-section">
+            <div class="media-container fade-in">
+                <!-- Replace with: <video src="demo.mp4" autoplay muted loop playsinline></video> -->
+                <div class="media-placeholder">App demo video</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phone Gallery -->
+    <section class="section-card" id="features">
+        <div class="headline-section">
+            <h2 class="fade-in">Every screen, considered.</h2>
+            <p class="fade-in">No clutter. No confusion. Just your photos and the tools to make them sing.</p>
+        </div>
+        <div class="phone-gallery">
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="1.PNG" alt="Home"></div>
+                <div class="gallery-info">
+                    <h4>Home</h4>
+                    <p>Your photos, ready to edit</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="2.PNG" alt="Edit"></div>
+                <div class="gallery-info">
+                    <h4>Edit</h4>
+                    <p>Presets, sliders, and fine control</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="3.PNG" alt="Light"></div>
+                <div class="gallery-info">
+                    <h4>Light</h4>
+                    <p>Brightness, contrast, shadows, highlights</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="4.PNG" alt="CMYK"></div>
+                <div class="gallery-info">
+                    <h4>CMYK</h4>
+                    <p>Color like a lab tech</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="5.PNG" alt="Batch"></div>
+                <div class="gallery-info">
+                    <h4>Batch</h4>
+                    <p>Edit up to 36 frames at once</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-phone"><img src="6.PNG" alt="Export"></div>
+                <div class="gallery-info">
+                    <h4>Export</h4>
+                    <p>Save, share, or send to Drive</p>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-nav">
+            <button class="gallery-nav-btn" id="galleryPrev" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+                </svg>
+            </button>
+            <button class="gallery-nav-btn active" id="galleryNext" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Haptics Section -->
+    <section class="section-main haptics-section">
+        <div class="headline-section">
+            <h2 class="fade-in">Editing you can feel.</h2>
+            <p class="fade-in">30+ haptic patterns. Every tap, slide, and click has its own signature.</p>
+        </div>
+    </section>
+
+    <!-- Specs Grid -->
+    <section class="section-card specs-section">
+        <div class="specs-grid stagger">
+            <div class="spec-card">
+                <div class="spec-icon">📷</div>
+                <h3>Real Scans</h3>
+                <p>Presets built from actual film scanned on a Fuji Frontier SP3000.</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">🎞️</div>
+                <h3>14 Borders</h3>
+                <p>Authentic film borders. Each preset has its own matching style.</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">📱</div>
+                <h3>36 Frames</h3>
+                <p>Batch edit an entire session. Lock settings. Swipe to apply.</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">🎮</div>
+                <h3>30+ Haptics</h3>
+                <p>Every button, slider, and interaction has its own tactile feel.</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">📋</div>
+                <h3>Contact Sheets</h3>
+                <p>Auto-generated proof sheets. Perfect for Instagram carousels.</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">☁️</div>
+                <h3>Google Drive</h3>
+                <p>Export directly to Drive. Browse folders. Stay organized.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Presets Section -->
+    <section class="section-canvas preset-section" id="presets">
+        <div class="headline-section">
+            <h2 class="fade-in">Frontier Classics.</h2>
+            <p class="fade-in">Built from real film, scanned on real hardware. Not filters. Color science.</p>
+        </div>
+
+        <div class="preset-grid stagger">
+            <div class="preset-card">
+                <div class="media-placeholder" style="aspect-ratio: 4/5;">SUPRA preview</div>
+                <svg class="preset-badge" viewBox="90 0 80 100" fill="none">
+                    <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="white"/>
+                    <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="white"/>
+                    <path d="M168.579 18.7311C147.094 36.6357 113.213 69.415 96.9607 91.4514C105.041 85.116 131.944 60.8758 168.579 18.7311Z" fill="white"/>
+                </svg>
+                <div class="preset-info">
+                    <h3 class="preset-name">SUPRA</h3>
+                    <p class="preset-desc">Golden hour, all day</p>
+                </div>
+            </div>
+            <div class="preset-card">
+                <div class="media-placeholder" style="aspect-ratio: 4/5;">CHROME preview</div>
+                <svg class="preset-badge" viewBox="90 0 80 100" fill="none">
+                    <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="white"/>
+                    <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="white"/>
+                    <path d="M168.579 18.7311C147.094 36.6357 113.213 69.415 96.9607 91.4514C105.041 85.116 131.944 60.8758 168.579 18.7311Z" fill="white"/>
+                </svg>
+                <div class="preset-info">
+                    <h3 class="preset-name">CHROME</h3>
+                    <p class="preset-desc">Cool tungsten cinema</p>
+                </div>
+            </div>
+            <div class="preset-card">
+                <div class="media-placeholder" style="aspect-ratio: 4/5;">XXX preview</div>
+                <svg class="preset-badge" viewBox="90 0 80 100" fill="none">
+                    <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="white"/>
+                    <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="white"/>
+                    <path d="M168.579 18.7311C147.094 36.6357 113.213 69.415 96.9607 91.4514C105.041 85.116 131.944 60.8758 168.579 18.7311Z" fill="white"/>
+                </svg>
+                <div class="preset-info">
+                    <h3 class="preset-name">XXX</h3>
+                    <p class="preset-desc">Darkroom black & white</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section section-main">
+        <h2 class="fade-in">The Frontier Minilab is open.</h2>
+        <p class="fade-in">Your photos aren't going to edit themselves.</p>
+        <a href="#" class="btn-arcade fade-in">
+            <span class="btn-face">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Download for iOS
+            </span>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <svg class="footer-logo" viewBox="90 0 80 100" fill="none">
+                <path d="M166.376 0C144.89 17.9046 111.009 50.6839 94.757 72.7204C102.837 66.3849 129.74 42.1448 166.376 0Z" fill="#d9d9d9"/>
+                <path d="M163.07 13.7727C141.584 31.6773 107.703 64.4566 91.4513 86.4931C99.5314 80.1576 126.434 55.9175 163.07 13.7727Z" fill="#d9d9d9"/>
+                <path d="M168.579 18.7311C147.094 36.6357 113.213 69.415 96.9607 91.4514C105.041 85.116 131.944 60.8758 168.579 18.7311Z" fill="#d9d9d9"/>
+            </svg>
+            <div class="footer-right">
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="mailto:support@frontierminilab.com">Contact</a>
+                    <a href="https://instagram.com/frontierminilab">Instagram</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2025 Frontier Minilab</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in, .stagger').forEach(el => observer.observe(el));
+
+        // Hero animations on load
+        document.querySelectorAll('.hero .fade-in').forEach((el, i) => {
+            setTimeout(() => el.classList.add('visible'), i * 100);
+        });
+
+        // Gallery navigation
+        const gallery = document.querySelector('.phone-gallery');
+        const prevBtn = document.getElementById('galleryPrev');
+        const nextBtn = document.getElementById('galleryNext');
+
+        if (gallery && prevBtn && nextBtn) {
+            const scrollAmount = 250;
+
+            const updateButtons = () => {
+                const atStart = gallery.scrollLeft <= 10;
+                const atEnd = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 10;
+
+                prevBtn.classList.toggle('active', !atStart);
+                nextBtn.classList.toggle('active', !atEnd);
+            };
+
+            prevBtn.addEventListener('click', () => {
+                gallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+
+            gallery.addEventListener('scroll', updateButtons);
+            updateButtons();
+        }
+
+    </script>
+</body>
+</html>
