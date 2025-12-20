@@ -160,6 +160,8 @@
             text-align: center;
             padding: 60px max(22px, calc((100vw - 1280px) / 2 + 120px)) 0;
             padding-bottom: 0;
+            background: var(--teal);
+            color: white;
         }
 
         @media (max-width: 1280px) {
@@ -179,6 +181,7 @@
             line-height: 0.95;
             letter-spacing: -0.01em;
             margin-bottom: 30px;
+            color: white;
         }
 
         .hero-subtitle {
@@ -186,7 +189,7 @@
             font-size: 36px;
             font-weight: 700;
             line-height: 0.9;
-            color: var(--text-primary);
+            color: white;
             max-width: 700px;
             margin-bottom: 36px;
         }
@@ -197,6 +200,21 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 60px;
+        }
+
+        .hero-lines {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 40px 0 60px;
+        }
+
+        .hero-line {
+            height: 16px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 8px;
         }
 
         .hero-image {
@@ -446,9 +464,9 @@
         }
 
         .gallery-phone {
-            width: 220px;
+            width: 180px;
             aspect-ratio: 9/19.5;
-            border-radius: 30px;
+            border-radius: 24px;
             overflow: hidden;
             background: #1a1a1a;
         }
@@ -463,7 +481,7 @@
         .gallery-info {
             margin-top: 48px;
             text-align: center;
-            max-width: 220px;
+            max-width: 180px;
         }
 
         .gallery-info h4 {
@@ -487,27 +505,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0;
-            background: #d9d9d9;
-            width: fit-content;
-            height: 48px;
+            gap: 8px;
             margin: 40px auto 60px;
-            border-radius: 24px;
-            padding: 4px;
         }
 
         .gallery-nav-btn {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             border: none;
-            background: transparent;
+            background: #d9d9d9;
             color: #999;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            border-radius: 50%;
+            border-radius: 8px;
+        }
+
+        .gallery-nav-btn svg {
+            width: 24px;
+            height: 24px;
         }
 
         .gallery-nav-btn.active,
@@ -516,11 +534,16 @@
             color: #d9d9d9;
         }
 
+        .gallery-nav-btn.active svg path,
+        .gallery-nav-btn:hover svg path {
+            fill: #d9d9d9;
+        }
+
         .gallery-counter {
             font-family: 'PP Neue Bit', sans-serif;
             font-size: 18px;
             font-weight: 700;
-            color: #666;
+            color: #d9d9d9;
             padding: 0 12px;
             display: flex;
             align-items: center;
@@ -1253,8 +1276,15 @@
             </a>
         </div>
 
-        <div class="hero-image fade-in">
-            <img src="hero.png" alt="Fuji Frontier Minilab">
+        <div class="hero-lines fade-in">
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
         </div>
     </section>
 
@@ -1338,24 +1368,14 @@
         </div>
         <div class="gallery-nav">
             <button class="gallery-nav-btn" id="galleryPrev" aria-label="Previous">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="6" y="11" width="12" height="2"/>
-                    <rect x="6" y="11" width="2" height="2"/>
-                    <rect x="8" y="9" width="2" height="2"/>
-                    <rect x="10" y="7" width="2" height="2"/>
-                    <rect x="8" y="13" width="2" height="2"/>
-                    <rect x="10" y="15" width="2" height="2"/>
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <path d="M21.5858 30L24 30L24 6L21.5858 6L9.5858 18L21.5858 30Z" fill="#222"/>
                 </svg>
             </button>
             <span class="gallery-counter"><span id="galleryCurrentSlide">1</span> / <span id="galleryTotalSlides">10</span></span>
             <button class="gallery-nav-btn active" id="galleryNext" aria-label="Next">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="6" y="11" width="12" height="2"/>
-                    <rect x="16" y="11" width="2" height="2"/>
-                    <rect x="14" y="9" width="2" height="2"/>
-                    <rect x="12" y="7" width="2" height="2"/>
-                    <rect x="14" y="13" width="2" height="2"/>
-                    <rect x="12" y="15" width="2" height="2"/>
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <path d="M14.4142 6L12 6V30H14.4142L26.4142 18L14.4142 6Z" fill="#222"/>
                 </svg>
             </button>
         </div>
